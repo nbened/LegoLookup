@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-
 class Part(object):
 
     def __init__(self, part_id, color, qty):
@@ -47,8 +46,11 @@ class Part(object):
         url = f'https://www.bricklink.com/catalogPG.asp?P={part_id}&colorID={colors[color]}'
         self.url = url
         print(f"Sourcing part from url: {url}")
+
+
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+            'User-Agent': f'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3029.110 Safari/537.3'
+            # 'X-Forwarded-For': '1.1.1.1'
         }
         response = requests.get(url, headers=headers)
         html_content = response.text

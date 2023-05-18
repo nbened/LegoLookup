@@ -1,6 +1,14 @@
 
 Todo:
-- add clear colors to list
+- add an 'add' feature to existing object
+- add a 'delete' part feature to existing object
 
 Rate limited at:
 12 pieces @ unknown timeframe
+
+Rate Limited:
+9 pieces @ 5 second pause rate limited
+11 pieces @ 10 second pause rate limited
+
+Not Rate Limited:
+29 pieces sourced @ 30 second pause between requests, STOPPED at 23 pieces
