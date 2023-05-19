@@ -42,29 +42,29 @@ class Part(object):
             "pink": 23,
             "purple": 24
         }
+        if color in colors.keys():
+            url = f'https://www.bricklink.com/catalogPG.asp?P={part_id}&colorID={colors[color]}'
+            self.url = url
+            print(f"Sourcing part from url: {url}")
 
-        url = f'https://www.bricklink.com/catalogPG.asp?P={part_id}&colorID={colors[color]}'
-        self.url = url
-        print(f"Sourcing part from url: {url}")
+            headers = {
+                'User-Agent': f'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3029.110 Safari/537.3'
+                # 'X-Forwarded-For': '1.1.1.1'
+            }
+            response = requests.get(url, headers=headers)
+            html_content = response.text
+            soup = BeautifulSoup(html_content, 'html.parser')
+            td_element = soup.find('td', text='Avg Price:')
 
-
-        headers = {
-            'User-Agent': f'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3029.110 Safari/537.3'
-            # 'X-Forwarded-For': '1.1.1.1'
-        }
-        response = requests.get(url, headers=headers)
-        html_content = response.text
-        soup = BeautifulSoup(html_content, 'html.parser')
-        td_element = soup.find('td', text='Avg Price:')
-
-        try:
-            price_element = td_element.find_next('b')
-            average_price = price_element.text.split('$')[1]
-            self.price = average_price
-            self.total_cost = int(self.qty)*float(self.price)
-        except AttributeError:
-            print(f'\nThe piece of {self.part_id} not found or you are rate limited.')
-
+            try:
+                price_element = td_element.find_next('b')
+                average_price = price_element.text.split('$')[1]
+                self.price = average_price
+                self.total_cost = int(self.qty)*float(self.price)
+            except AttributeError:
+                print(f'\nThe piece of {self.part_id} not found or you are rate limited.')
+        else:
+            print(f'\nThe color "{color}" of {self.part_id} not found or you are rate limited.')
 
         print(f"Price of ${self.price} retrieved for {self.color} {self.part_id}. {self.qty} costs ${int(self.qty)*float(self.price)}")
 

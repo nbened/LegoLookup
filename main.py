@@ -35,7 +35,10 @@ while not breakLoop:
         load_parts_from_temp = True
         try:
             parts = load_pickle(parts_path)
+
             print("DONE")
+            for i in range(len(parts)):
+                print(f"[{i}] {parts[i].qty}x {parts[i].color} {parts[i].part_id}")
             if len(parts):
                 print(f"{len(parts)} parts loaded. Most recent part was {parts[len(parts)-1].qty} {parts[len(parts)-1].color} {parts[len(parts)-1].part_id} parts.")
         except FileNotFoundError:

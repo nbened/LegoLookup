@@ -1,8 +1,8 @@
 from utilities import *
 
 # define what build to retrive
-build_name = "cable-stayed bridge"
-list_out_parts = True
+build_name = str(input("\nWhat's the name of the build?\n> ")).title()
+list_out_parts = False
 
 def retrieve_build(build_name,list_out_parts):
 
@@ -31,5 +31,6 @@ def retrieve_build(build_name,list_out_parts):
 
     except FileNotFoundError:
         print(f"No existing pickle file with name {build_name} found.")
+
 
 retrieve_build(build_name=build_name.title(),list_out_parts=list_out_parts)
